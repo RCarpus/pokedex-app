@@ -1,8 +1,29 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
 
-    function add(pokemon) {
-        pokemonList.push(pokemon);
+    function add(pokemon) {        
+        let requiredKeys = ['name', 'height', 'type', 'cutenessLevel'];
+        let passedInKeys = Object.keys(pokemon);
+        //console.log(`Attempting to add pokemon with the following keys: ${passedInKeys}`);
+        let missingKeys = [];
+        //Check to make sure each required key is present
+        requiredKeys.forEach(function(key) {
+            //console.log(`validating key: ${key}`);
+            if (!passedInKeys.includes(key)) {
+                console.error(`Error: Missing key - ${key}`);
+                missingKeys.push(key);
+            } 
+        });
+        //return a list of missing keys without pushing pokemon to list if there is a key missing
+        if (missingKeys.length) return;
+        //push the pokemon to the pokemonList if all keys are present
+        //ignores any extra keys that may have been added
+        pokemonList.push( {
+            name: pokemon.name,
+            height: pokemon.height,
+            type: pokemon.type,
+            cutenessLevel: pokemon.cutenessLevel
+        });
     }
 
     function getAll() {
