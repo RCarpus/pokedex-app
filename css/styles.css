@@ -1,0 +1,52 @@
+/*
+to convert to style.production.css, first use the PostCSS variables playground
+https://madlittlemods.github.io/postcss-css-variables/playground/
+then use the Autoprefixer CSS online tool
+https://autoprefixer.github.io/
+Paste output into style.production.css. 
+Make sure links in site point to style.production.css before publishing.
+*/
+
+:root {
+    /* colors */
+    --body-background-color: #ddd; /*light gray*/
+    --project-tile-background-color: #d3d3d3;
+    --text-color: black;
+    --pokemon-box-color: rgb(175, 175, 175);
+
+    /* font sizes */ 
+    --body-font-size: 16px;
+    --nav-item-size: 25px;
+    --nav-item-size-mobile: 15px;
+    --h1-size: 30px;
+    --h1-size-mobile: 22px;
+    --h2-size: 25px;
+    --citations-size: 12px;
+
+}   
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: var(--body-background-color);
+    font-family: sans-serif;
+    font-size: var(--body-font-size);
+    line-height: 1.5em;
+    margin: 15px;
+}
+
+#pokemon-descriptions {
+    background-color: var(--pokemon-box-color);
+    display: block;
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 1em;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 10px;
+}
+
+
