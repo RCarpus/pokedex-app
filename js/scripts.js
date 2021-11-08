@@ -1,33 +1,41 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
 
-    function add(pokemon) {        
-        let requiredKeys = ['name', 'height', 'type', 'cutenessLevel'];
-        let passedInKeys = Object.keys(pokemon);
-        //console.log(`Attempting to add pokemon with the following keys: ${passedInKeys}`);
+    function passedInKeysAreValid(requiredKeys, passedInKeys) {
         let missingKeys = [];
         //Check to make sure each required key is present
         requiredKeys.forEach(function(key) {
-            //console.log(`validating key: ${key}`);
             if (!passedInKeys.includes(key)) {
                 console.error(`Error: Missing key - ${key}`);
                 missingKeys.push(key);
             } 
         });
-        //return a list of missing keys without pushing pokemon to list if there is a key missing
-        if (missingKeys.length) return;
-        //push the pokemon to the pokemonList if all keys are present
-        //ignores any extra keys that may have been added
-        pokemonList.push( {
-            name: pokemon.name,
-            height: pokemon.height,
-            type: pokemon.type,
-            cutenessLevel: pokemon.cutenessLevel
-        });
+        return missingKeys.length ? false : true;
+    }
+
+    function add(pokemon) {        
+        /*
+        Adds the pokemon to the repository only if the necessary keys are included in the object.
+        The added pokemon will exlude any keys that are not required.
+        */
+        let requiredKeys = ['name', 'height', 'type', 'cutenessLevel'];
+        let passedInKeys = Object.keys(pokemon);
+        if (passedInKeysAreValid(requiredKeys, passedInKeys)) {
+            pokemonList.push( {
+                name: pokemon.name,
+                height: pokemon.height,
+                type: pokemon.type,
+                cutenessLevel: pokemon.cutenessLevel
+            });
+        }
     }
 
     function getAll() {
         return pokemonList;
+    }
+
+    function searchByName(name) {
+        return pokemonList.filter(pokemon => pokemon.name === name)[0];
     }
 
     //example data to be replaced by real data later
@@ -35,7 +43,8 @@ let pokemonRepository = (function () {
         name : 'Minccino',
         height: 16,
         type: ['normal'],
-        cutenessLevel: 'cuteness overload'
+        cutenessLevel: 'cuteness overload',
+        asdf: 'd'
     };
     
     let dunsparce = {
@@ -65,6 +74,8 @@ let pokemonRepository = (function () {
     add(cramorant);
     add(bidoof);
 
+    //console.log(searchByName('Minccino'));
+
     return {
         add: add,
         getAll: getAll
@@ -86,3 +97,5 @@ pokemonRepository.getAll().forEach(function(pokemon) {
     }
     document.write('</p>');
 });
+
+console.log(pokemonRepository.getAll());
