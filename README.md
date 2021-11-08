@@ -1,0 +1,2 @@
+This app will fetch data from an external API and display the data for viewing by the user.
+Currently, the app has nearly zero content, and only contains a JavaScript list of four pokemon consisting of hard-coded objects, each with fouru attributes.
