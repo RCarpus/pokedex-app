@@ -35,15 +35,15 @@ pokemonList.push(bidoof);
 let largeHeight = 48;
 let smallHeight = 20;
 //Write each pokemon's name and height to the page
-for (let i=0; i<pokemonList.length; i++) {
+pokemonList.forEach(function(pokemon) {
     document.write('<p>');
-    document.write(`<strong>${pokemonList[i].name}</strong> \(height: ${pokemonList[i].height} inches\)`);
+    document.write(`<strong>${pokemon.name}</strong> \(height: ${pokemon.height} inches\)`);
     //Print "Wow, that's big!" if the pokemon is tall and mentions cuteness level of pokemon
-    if (pokemonList[i].height >= largeHeight) {
-        document.write(` Wow, that\'s big, and ${pokemonList[i].cutenessLevel}!`);
+    if (pokemon.height >= largeHeight) {
+        document.write(` Wow, that\'s big, and ${pokemon.cutenessLevel}!`);
     //Print "Wow, that's small!" if the pokemon is short and mentions cuteness level of pokemon
-    } else if (pokemonList[i].height <= smallHeight) {
-        document.write(` Wow, that\'s small, and ${pokemonList[i].cutenessLevel}!`)
+    } else if (pokemon.height <= smallHeight) {
+        document.write(` Wow, that\'s small, and ${pokemon.cutenessLevel}!`)
     }
     document.write('</p>');
-}
+});
