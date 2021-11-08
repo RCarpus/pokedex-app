@@ -13,6 +13,12 @@ let pokemonRepository = (function () {
         return missingKeys.length ? false : true;
     }
 
+    function nameIsAvailable(passedInName) {
+        let available = searchByName(passedInName) ? false : true;
+        if (!available) console.error('A pokemon with the same name is already in the repository.');
+        return available;
+    }
+
     function add(pokemon) {        
         /*
         Adds the pokemon to the repository only if the necessary keys are included in the object.
@@ -20,13 +26,15 @@ let pokemonRepository = (function () {
         */
         let requiredKeys = ['name', 'height', 'type', 'cutenessLevel'];
         let passedInKeys = Object.keys(pokemon);
-        if (passedInKeysAreValid(requiredKeys, passedInKeys)) {
+        if (passedInKeysAreValid(requiredKeys, passedInKeys) && nameIsAvailable(pokemon.name)) {
             pokemonList.push( {
                 name: pokemon.name,
                 height: pokemon.height,
                 type: pokemon.type,
                 cutenessLevel: pokemon.cutenessLevel
             });
+        } else {
+            console.error('Could not add Pokemon. One or more required keys are missing/invalid');
         }
     }
 
@@ -74,11 +82,10 @@ let pokemonRepository = (function () {
     add(cramorant);
     add(bidoof);
 
-    //console.log(searchByName('Minccino'));
-
     return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        searchByName: searchByName
     };
 })();
 
@@ -97,5 +104,3 @@ pokemonRepository.getAll().forEach(function(pokemon) {
     }
     document.write('</p>');
 });
-
-console.log(pokemonRepository.getAll());
