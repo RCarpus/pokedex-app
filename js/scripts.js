@@ -1,7 +1,8 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
+    let requiredKeys = ['name', 'height', 'type', 'cutenessLevel'];
 
-    function passedInKeysAreValid(requiredKeys, passedInKeys) {
+    function passedInKeysAreValid(passedInKeys) {
         let missingKeys = [];
         //Check to make sure each required key is present
         requiredKeys.forEach(function(key) {
@@ -19,14 +20,57 @@ let pokemonRepository = (function () {
         return available;
     }
 
+    function typeIsValid(passedInType) {
+        //Checks to see if each passed in type is a valid type.
+        //This will also catch if a wrong data type altogether is passed in (ie: int).
+        //This check will let pass an empty list.
+        //That will not be a problem if it's just a blank search parameter
+        //but is a potential problem if I am pulling bad data from an external source.
+        if (!Array.isArray(passedInType))  {
+            console.error('pokemon.type must be a list');
+            return false; 
+        }
+        let validTypes = ['normal', 'fire', 'water', 
+                        'grass', 'electric', 'ice', 
+                        'fighting', 'poison', 'ground', 
+                        'flying', 'psychic', 'bug', 
+                        'rock', 'ghost', 'dark', 
+                        'dragon', 'steel', 'fairy'];
+        let foundInvalidType = false;
+        passedInType.forEach(function(type) {
+            if (!validTypes.includes(type)) {
+                console.error('Invalid type');
+                foundInvalidType = true;
+            }
+        });
+        return foundInvalidType ? false : true;
+    }
+
+    function pokemonIsValid(pokemon) {
+        //runs all validations for a pokemon
+        //returns true if all checks pass, false if one or more checks fail
+        let valid = true;
+        if (!passedInKeysAreValid(Object.keys(pokemon))) {
+            console.error('invalid keys');
+            valid = false;
+        }
+        if (!nameIsAvailable(pokemon.name)) {
+            console.error('name invalid');
+            valid = false;
+        }
+        if (!typeIsValid(pokemon.type)) {
+            console.error('type is invalid');
+            valid = false;
+        }
+        return valid ? true : false;
+    }
+
     function add(pokemon) {        
         /*
         Adds the pokemon to the repository only if the necessary keys are included in the object.
         The added pokemon will exlude any keys that are not required.
         */
-        let requiredKeys = ['name', 'height', 'type', 'cutenessLevel'];
-        let passedInKeys = Object.keys(pokemon);
-        if (passedInKeysAreValid(requiredKeys, passedInKeys) && nameIsAvailable(pokemon.name)) {
+        if (pokemonIsValid(pokemon)) {
             pokemonList.push( {
                 name: pokemon.name,
                 height: pokemon.height,
