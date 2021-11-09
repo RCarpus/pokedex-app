@@ -1,8 +1,8 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
     let requiredKeys = ['name', 'height', 'types', 'cutenessLevel'];
-    //let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-    let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+    //let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
 
     //Make the API call to load in the pokemon list
     function loadList() {
