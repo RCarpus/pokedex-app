@@ -1,6 +1,6 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
-    let requiredKeys = ['name', 'height', 'type', 'cutenessLevel'];
+    let requiredKeys = ['name', 'height', 'types', 'cutenessLevel'];
     //let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
     let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension
 
@@ -52,14 +52,14 @@ let pokemonRepository = (function () {
         return available;
     }
 
-    function typeIsValid(passedInType) {
+    function typeIsValid(passedInTypes) {
         //Checks to see if each passed in type is a valid type.
         //This will also catch if a wrong data type altogether is passed in (ie: int).
         //This check will let pass an empty list.
         //That will not be a problem if it's just a blank search parameter
         //but is a potential problem if I am pulling bad data from an external source.
-        if (!Array.isArray(passedInType))  {
-            console.error('pokemon.type must be a list');
+        if (!Array.isArray(passedInTypes))  {
+            console.error('pokemon.types must be a list');
             return false; 
         }
         let validTypes = ['normal', 'fire', 'water', 
@@ -69,7 +69,7 @@ let pokemonRepository = (function () {
                         'rock', 'ghost', 'dark', 
                         'dragon', 'steel', 'fairy'];
         let foundInvalidType = false;
-        passedInType.forEach(function(type) {
+        passedInTypes.forEach(function(type) {
             if (!validTypes.includes(type)) {
                 console.error('Invalid type');
                 foundInvalidType = true;
@@ -90,8 +90,8 @@ let pokemonRepository = (function () {
             console.error('name invalid');
             valid = false;
         }
-        if (!typeIsValid(pokemon.type)) {
-            console.error('type is invalid');
+        if (!typeIsValid(pokemon.types)) {
+            console.error('types is invalid');
             valid = false;
         }
         return valid ? true : false;
@@ -106,7 +106,7 @@ let pokemonRepository = (function () {
             pokemonList.push( {
                 name: pokemon.name,
                 height: pokemon.height,
-                type: pokemon.type,
+                types: pokemon.types,
                 cutenessLevel: pokemon.cutenessLevel
             });
         } else {
@@ -149,7 +149,7 @@ let pokemonRepository = (function () {
     let minccino = {
         name : 'Minccino',
         height: 16,
-        type: ['normal'],
+        types: ['normal'],
         cutenessLevel: 'cuteness overload',
         asdf: 'd'
     };
@@ -157,21 +157,21 @@ let pokemonRepository = (function () {
     let dunsparce = {
         name: 'Dunsparce',
         height: 59,
-        type: ['normal'],
+        types: ['normal'],
         cutenessLevel: 'pretty uggo'
     };
     
     let cramorant = {
         name: 'Cramorant',
         height: 31,
-        type: ['flying', 'water'],
+        types: ['flying', 'water'],
         cutenessLevel: 'moderately cute'
     };
     
     let bidoof = {
         name: 'Bidoof',
         height: 20,
-        type: ['normal'],
+        types: ['normal'],
         cutenessLevel: 'simultaneously the ugliest and most beautiful creature I have ever seen'
     };
  */
