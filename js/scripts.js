@@ -46,6 +46,23 @@ let pokemonRepository = (function () {
         return pokemonList.filter(pokemon => pokemon.name === name)[0];
     }
 
+    function addListItem(pokemon) {
+        //Adds a <li> with a child <button class="pokemon-button"> to the parent <ul class="pokemon-list">
+        let pokemonList = document.querySelector('.pokemon-list');
+        let listItem = document.createElement('li');
+        let button = document.createElement('button');
+        button.innerText = pokemon.name;
+        button.classList.add('pokemon-button');        
+        listItem.appendChild(button);
+        pokemonList.appendChild(listItem);
+        //Add an event listener to log pokemon info when button is clicked
+        button.addEventListener('click', function(){showDetails(pokemon)});
+    }
+
+    function showDetails(pokemon) {
+        console.log(pokemon.name);
+    }
+
     //example data to be replaced by real data later
     let minccino = {
         name : 'Minccino',
@@ -85,22 +102,12 @@ let pokemonRepository = (function () {
     return {
         add: add,
         getAll: getAll,
-        searchByName: searchByName
+        searchByName: searchByName,
+        addListItem: addListItem
     };
 })();
 
-let largeHeight = 48;
-let smallHeight = 20;
 //Write each pokemon's name and height to the page
 pokemonRepository.getAll().forEach(function(pokemon) {
-    document.write('<p>');
-    document.write(`<strong>${pokemon.name}</strong> \(height: ${pokemon.height} inches\)`);
-    //Print "Wow, that's big!" if the pokemon is tall and mentions cuteness level of pokemon
-    if (pokemon.height >= largeHeight) {
-        document.write(` Wow, that\'s big, and ${pokemon.cutenessLevel}!`);
-    //Print "Wow, that's small!" if the pokemon is short and mentions cuteness level of pokemon
-    } else if (pokemon.height <= smallHeight) {
-        document.write(` Wow, that\'s small, and ${pokemon.cutenessLevel}!`)
-    }
-    document.write('</p>');
+    pokemonRepository.addListItem(pokemon);
 });
