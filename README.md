@@ -1,2 +1,1 @@
-This app will fetch data from an external API and display the data for viewing by the user.
-Currently, the app has nearly zero content, and only contains a JavaScript list of four pokemon consisting of hard-coded objects, each with four attributes. The script.js creates four buttons, which when clicked on, log the pokemon name to the console.
+This app fetches data from the pokeAPI and displays a list of Pokemon that have been fetched. Currently, when the name of a pokemon is clicked, some additional details for the pokemon will be fetched from the API and logged to the console.
