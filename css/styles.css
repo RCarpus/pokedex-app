@@ -29,15 +29,27 @@ body {
     margin: 15px;
 }
 
-#pokemon-descriptions {
+.pokemon-list {
     background-color: var(--pokemon-box-color);
     display: block;
-    max-width: 750px;
+    max-width: 150px;
     margin: 0 auto;
-    padding: 1em;
+    padding: 5px;
     border-style: solid;
     border-width: 3px;
     border-radius: 10px;
+    list-style-type: none;
 }
 
+.pokemon-button {
+    display: block;
+    margin: .3em auto;
+    background-color: #ddd;
+    width: 90%;
+}
 
+@media all and (max-width: 500px) {
+    #logo {
+        height: 50px;
+    }
+}
