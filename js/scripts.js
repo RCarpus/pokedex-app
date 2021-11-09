@@ -137,10 +137,10 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
-    function searchByName(name) {
+/*     function searchByName(name) {
         return pokemonList.filter(pokemon => pokemon.name === name)[0];
     }
-
+ */
     function addListItem(pokemon) {
         //Adds a <li> with a child <button class="pokemon-button"> to the parent <ul class="pokemon-list">
         let pokemonList = document.querySelector('.pokemon-list');
@@ -171,7 +171,9 @@ let pokemonRepository = (function () {
 
     //loading message to be hidden after page load and after loading in pokemon details
     function hideLoadingMessage() {
-        document.getElementById('loading-message').remove();
+        let loadingMessage = document.querySelector('#loading-message');
+        let docBody = document.querySelector('body');
+        docBody.removeChild(loadingMessage);
     }
 
 
@@ -180,7 +182,7 @@ let pokemonRepository = (function () {
         getAll: getAll,
         loadList: loadList,
         loadDetails: loadDetails,
-        searchByName: searchByName,
+        //searchByName: searchByName,
         addListItem: addListItem
     };
 })();
