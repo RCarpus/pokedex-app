@@ -6,6 +6,7 @@ let pokemonRepository = (function () {
 
     //Make the API call to load in the pokemon list
     function loadList() {
+        showLoadingMessage();
         return fetch(apiUrl).then(function (response) {
           return response.json();
         }).then(function (json) {
@@ -17,13 +18,16 @@ let pokemonRepository = (function () {
             };
             add(pokemon);
           });
+          hideLoadingMessage();
         }).catch(function (e) {
           console.error(e);
+          hideLoadingMessage();
         })
       }
 
       //API call to load details when pokemon is clicked on
       function loadDetails(item) {
+        showLoadingMessage();
         let url = item.detailsUrl;
         return fetch(url).then(function (response) {
           return response.json();
@@ -32,8 +36,10 @@ let pokemonRepository = (function () {
           item.imageUrl = details.sprites.front_default;
           item.height = details.height;
           item.types = parseTypes(details.types);
+          hideLoadingMessage();
         }).catch(function (e) {
           console.error(e);
+          hideLoadingMessage();
         });
       }
 
@@ -153,6 +159,21 @@ let pokemonRepository = (function () {
             console.log(pokemon);
         });
     }
+
+    //loading message to be shown on page load and after clicking a pokemon name
+    function showLoadingMessage() {
+        let docBody = document.querySelector('body');
+        let loadingMessage = document.createElement('h1');
+        loadingMessage.innerText = 'Loading';
+        loadingMessage.id = 'loading-message';
+        docBody.appendChild(loadingMessage);
+    }
+
+    //loading message to be hidden after page load and after loading in pokemon details
+    function hideLoadingMessage() {
+        document.getElementById('loading-message').remove();
+    }
+
 
     return {
         add: add,
