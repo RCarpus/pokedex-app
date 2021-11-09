@@ -1,6 +1,38 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
     let requiredKeys = ['name', 'height', 'type', 'cutenessLevel'];
+    //let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+    let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension
+
+    function loadList() {
+        return fetch(apiUrl).then(function (response) {
+          return response.json();
+        }).then(function (json) {
+          json.results.forEach(function (item) {
+            let pokemon = {
+              name: item.name,
+              detailsUrl: item.url
+            };
+            add(pokemon);
+          });
+        }).catch(function (e) {
+          console.error(e);
+        })
+      }
+
+      function loadDetails(item) {
+        let url = item.detailsUrl;
+        return fetch(url).then(function (response) {
+          return response.json();
+        }).then(function (details) {
+          // Now we add the details to the item
+          item.imageUrl = details.sprites.front_default;
+          item.height = details.height;
+          item.types = details.types;
+        }).catch(function (e) {
+          console.error(e);
+        });
+      }
 
     function passedInKeysAreValid(passedInKeys) {
         let missingKeys = [];
@@ -70,7 +102,7 @@ let pokemonRepository = (function () {
         Adds the pokemon to the repository only if the necessary keys are included in the object.
         The added pokemon will exlude any keys that are not required.
         */
-        if (pokemonIsValid(pokemon)) {
+/*         if (pokemonIsValid(pokemon)) {
             pokemonList.push( {
                 name: pokemon.name,
                 height: pokemon.height,
@@ -79,7 +111,11 @@ let pokemonRepository = (function () {
             });
         } else {
             console.error('Could not add Pokemon. One or more required keys are missing/invalid');
-        }
+        } */
+        pokemonList.push( {
+            name: pokemon.name,
+            detailsUrl: pokemon.detailsUrl
+        });
     }
 
     function getAll() {
@@ -104,10 +140,12 @@ let pokemonRepository = (function () {
     }
 
     function showDetails(pokemon) {
-        console.log(pokemon.name);
+        loadDetails(pokemon).then(function () {
+            console.log(pokemon);
+        });
     }
 
-    //example data to be replaced by real data later
+/*     //example data to be replaced by real data later
     let minccino = {
         name : 'Minccino',
         height: 16,
@@ -136,22 +174,31 @@ let pokemonRepository = (function () {
         type: ['normal'],
         cutenessLevel: 'simultaneously the ugliest and most beautiful creature I have ever seen'
     };
-
-    //load in example data
+ */
+/*     //load in example data
     add(minccino);
     add(dunsparce);
     add(cramorant);
     add(bidoof);
-
+ */
     return {
         add: add,
         getAll: getAll,
+        loadList: loadList,
+        loadDetails: loadDetails,
         searchByName: searchByName,
         addListItem: addListItem
     };
 })();
 
-//Write each pokemon's name and height to the page
+/* //Write each pokemon's name and height to the page
 pokemonRepository.getAll().forEach(function(pokemon) {
     pokemonRepository.addListItem(pokemon);
-});
+}); */
+
+pokemonRepository.loadList().then(function() {
+    // Now the data is loaded!
+    pokemonRepository.getAll().forEach(function(pokemon){
+      pokemonRepository.addListItem(pokemon);
+    });
+  });
