@@ -1,8 +1,8 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
     let requiredKeys = ['name', 'height', 'types', 'cutenessLevel'];
-    //let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-    let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
+    //let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
 
     //Make the API call to load in the pokemon list
     function loadList() {
@@ -10,11 +10,13 @@ let pokemonRepository = (function () {
         return fetch(apiUrl).then(function (response) {
           return response.json();
         }).then(function (json) {
+          let pokeID = 0; //Each pokemon will get a unique pokeID
           json.results.forEach(function (item) {
+            pokeID += 1;
             let pokemon = {
               name: item.name[0].toUpperCase() + item.name.substring(1),
               detailsUrl: item.url,
-              types: item.types
+              pokeID: `ID-${pokeID}` //this is a string not starting with a number because it will be used as a css class
             };
             add(pokemon);
           });
@@ -130,6 +132,7 @@ let pokemonRepository = (function () {
         pokemonList.push( {
             name: pokemon.name,
             detailsUrl: pokemon.detailsUrl,
+            pokeID: pokemon.pokeID
         });
     }
 
@@ -147,11 +150,14 @@ let pokemonRepository = (function () {
         let listItem = document.createElement('li');
         let button = document.createElement('button');
         button.innerText = pokemon.name;
-        button.classList.add('pokemon-button');        
+        button.classList.add('pokemon-button');
+        button.classList.add(pokemon.pokeID);        
         listItem.appendChild(button);
         pokemonList.appendChild(listItem);
         //Add an event listener to log pokemon info when button is clicked
-        button.addEventListener('click', function(){showDetails(pokemon)});
+        button.addEventListener('click', function() {
+            showDetails(pokemon)
+        });
     }
 
     function showDetails(pokemon) {
@@ -198,7 +204,12 @@ pokemonRepository.loadList().then(function() {
 
   //------Begin Modal implementation-------------------
 let modalContainer = document.querySelector('#modal-container');
+let currentPokeID; // Global variable, potential red flag, used for left and right key options
+
 function showModal(pokemon) {
+  console.log(`displaying pokemon with pokeID: ${pokemon.pokeID}`);
+  currentPokeID = pokemon.pokeID.slice(3); //Need to parse the string to get the integer we really want
+  console.log(`currentPokeID: ${currentPokeID}`);
   //clear existing modal content
   modalContainer.innerHTML = '';
 
@@ -253,13 +264,47 @@ function hideModal() {
   modal.classList.remove('is-visible');
 }
 
-//Hide modal if Esc is pressed while modal is open
+
 window.addEventListener('keydown', (e) => {
+  /* The keydown event listener handles closing the window using the escape key and 
+    turning the page to the next Pokemon using the left and right arrow keys */
   let modalContainer = document.querySelector('#modal-container');
+  //Hide modal if Esc is pressed while modal is open
   if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
     hideModal();
   }
+  // load pokemon 1 up on list when key press left
+  if (e.key === 'ArrowLeft' && modalContainer.classList.contains('is-visible') && currentPokeID > 1) {
+      console.log('ArrowLeft');
+      hideModal();
+      previousPokemon();
+  }
+    // load pokemon 1 down on list when key press left
+  if (e.key === 'ArrowRight' && modalContainer.classList.contains('is-visible') && currentPokeID < 151) {
+      console.log('ArrowRight');
+      hideModal();
+      nextPokemon();
+  }
+  // Prevent default behavior for enter.
+  // If this not here, pressing enter will reload the first pokemon that was clicked on.
+  if (e.key ==='Enter') {
+      e.preventDefault();
+  }
 });
+
+//click the button for the previous pokemon
+function previousPokemon() {
+    //need to reformat the currentPokeID into the appropriate css class string
+    let previous = document.querySelector(`.ID-${currentPokeID-1}`);
+    previous.click();
+}
+
+//click the button for the next pokemon
+function nextPokemon() {
+    //need to reformat the currentPokeID into the appropriate css class string
+    let next = document.querySelector(`.ID-${parseInt(currentPokeID)+1}`);
+    next.click();
+}
 
 //Hide modal if user clicks outside the modal
 modalContainer.addEventListener('click', (e) => {
@@ -268,4 +313,7 @@ modalContainer.addEventListener('click', (e) => {
     hideModal();
   }
 });
+
+
+
 //--------End Modal implementation-------------------
