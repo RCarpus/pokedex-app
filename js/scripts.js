@@ -100,7 +100,9 @@ let pokemonRepository = (function () {
         listItem.appendChild(button);
         pokemonList.appendChild(listItem);
         //Add an event listener to log pokemon info when button is clicked
-        button.addEventListener('click', function(){showDetails(pokemon)});
+        button.addEventListener('click', function() {
+            showDetails(pokemon)
+        });
     }
 
     function showDetails(pokemon) {
