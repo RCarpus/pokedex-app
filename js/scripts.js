@@ -1,8 +1,8 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
     let requiredKeys = ['name', 'height', 'types', 'cutenessLevel'];
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-    //let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
+    //let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+    let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
 
     //Make the API call to load in the pokemon list
     function loadList() {
@@ -12,7 +12,7 @@ let pokemonRepository = (function () {
         }).then(function (json) {
           json.results.forEach(function (item) {
             let pokemon = {
-              name: item.name,
+              name: item.name[0].toUpperCase() + item.name.substring(1),
               detailsUrl: item.url,
               types: item.types
             };
@@ -157,6 +157,7 @@ let pokemonRepository = (function () {
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
             console.log(pokemon);
+            showModal(pokemon);
         });
     }
 
@@ -193,3 +194,78 @@ pokemonRepository.loadList().then(function() {
       pokemonRepository.addListItem(pokemon);
     });
   });
+
+
+  //------Begin Modal implementation-------------------
+let modalContainer = document.querySelector('#modal-container');
+function showModal(pokemon) {
+  //clear existing modal content
+  modalContainer.innerHTML = '';
+
+  let modal = document.createElement('div');
+  modal.classList.add('modal');
+
+  //close button
+  let closeButtonElement = document.createElement('button');
+  closeButtonElement.classList.add('modal-close');
+  closeButtonElement.innerText = 'Close';
+  closeButtonElement.addEventListener('click', hideModal);
+
+  //Pokemon Name
+  let titleElement = document.createElement('h1');
+  titleElement.innerText = pokemon.name;
+
+  //Pokemon Types
+  let typesUnorderedList = document.createElement('ul');
+  typesUnorderedList.classList.add('types-list');
+  pokemon.types.forEach(function(type) {
+      console.log(type);
+      let typesListElement = document.createElement('li');
+      typesListElement.classList.add(type);
+      typesListElement.classList.add('pokemon-type');
+      typesListElement.innerText = type;
+      typesUnorderedList.appendChild(typesListElement);
+  });
+
+  //Pokemon Height
+  let heightElement = document.createElement('p');
+  heightElement.innerText = `Height: ${pokemon.height} in`;
+
+  //Pokemon Image
+  let imageElement = document.createElement('img');
+  imageElement.classList.add('pokemon-image');
+  imageElement.src = pokemon.imageUrl;
+
+  //Add the modal elements to the modal
+  modal.appendChild(closeButtonElement);
+  modal.appendChild(titleElement);
+  modal.appendChild(typesUnorderedList);
+  modal.appendChild(heightElement);
+  modal.appendChild(imageElement);
+  modalContainer.appendChild(modal);
+
+  //Makes modal visible
+  modalContainer.classList.add('is-visible');
+}
+
+function hideModal() {
+  let modal = document.querySelector('#modal-container');
+  modal.classList.remove('is-visible');
+}
+
+//Hide modal if Esc is pressed while modal is open
+window.addEventListener('keydown', (e) => {
+  let modalContainer = document.querySelector('#modal-container');
+  if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+    hideModal();
+  }
+});
+
+//Hide modal if user clicks outside the modal
+modalContainer.addEventListener('click', (e) => {
+  let target = e.target;
+  if (target === modalContainer) {
+    hideModal();
+  }
+});
+//--------End Modal implementation-------------------
