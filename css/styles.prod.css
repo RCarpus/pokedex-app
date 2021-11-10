@@ -14,21 +14,28 @@ Paste output into style.production.css.
 Make sure links in site point to style.production.css before publishing.
 */
 
-:root {
-    /* colors */ /*light gray*/
-    /* font sizes */
-}   
+  
 
 * {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
 }
 
+h1 {
+    display: block;
+    width: 100%;
+    font-weight: 700;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.2em;
+    text-align: center;
+}
 
 body {
+    font-family: 'Source Sans Pro', sans-serif;
     background-color: #ddd;
     font-family: sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.5em;
     margin: 15px;
 }
@@ -41,7 +48,7 @@ ul {
 .pokemon-list {
     background-color: rgb(175, 175, 175);
     display: block;
-    max-width: 150px;
+    max-width: 250px;
     margin: 0 auto;
     border-style: solid;
     border-width: 3px;
@@ -54,6 +61,12 @@ ul {
     margin: .3em auto;
     background-color: #ddd;
     width: 90%;
+    font-size: 20px;
+}
+
+.pokemon-button:hover {
+    color: #ddd;
+    background-color: #004d80;
 }
 
 #loading-message {
@@ -110,8 +123,11 @@ display: inline-block;
 background: #fff;
 padding: 15px;
 width: 100%;
-max-width: 400px;
+max-width: 300px;
 text-align: left;
+border: solid black 1px;
+border-radius: 15px;
+background-color: #ddd;
 }
   
 .modal-close {
