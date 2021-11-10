@@ -184,7 +184,124 @@ let pokemonRepository = (function () {
         docBody.removeChild(loadingMessage);
     }
 
-
+    //------Begin Modal implementation-------------------
+    let modalContainer = document.querySelector('#modal-container');
+    let currentPokeID; // used for left and right key options
+    
+    function showModal(pokemon) {
+        //console.log(`displaying pokemon with pokeID: ${pokemon.pokeID}`);
+        currentPokeID = pokemon.pokeID.slice(3); //Need to parse the string to get the integer we really want
+        //console.log(`currentPokeID: ${currentPokeID}`);
+        //clear existing modal content
+        modalContainer.innerHTML = '';
+    
+        let modal = document.createElement('div');
+        modal.classList.add('modal');
+    
+        //close button
+        let closeButtonElement = document.createElement('button');
+        closeButtonElement.classList.add('modal-close');
+        closeButtonElement.innerText = 'Close';
+        closeButtonElement.addEventListener('click', hideModal);
+    
+        //Pokemon Name
+        let titleElement = document.createElement('h1');
+        titleElement.innerText = pokemon.name;
+    
+        //Pokemon Types
+        let typesUnorderedList = document.createElement('ul');
+        typesUnorderedList.classList.add('types-list');
+        pokemon.types.forEach(function(type) {
+            console.log(type);
+            let typesListElement = document.createElement('li');
+            typesListElement.classList.add(type);
+            typesListElement.classList.add('pokemon-type');
+            typesListElement.innerText = type;
+            typesUnorderedList.appendChild(typesListElement);
+        });
+    
+        //Pokemon Height
+        let heightElement = document.createElement('p');
+        heightElement.innerText = 'Height: ' + pokemon.height + ' in';
+    
+        //Pokemon Weight
+        let weightElement = document.createElement('p');
+        weightElement.innerText = 'Weight: ' + pokemon.weight + ' lbs';
+    
+        //Pokemon Image
+        let imageElement = document.createElement('img');
+        imageElement.classList.add('pokemon-image');
+        imageElement.src = pokemon.imageUrl;
+    
+        //Add the modal elements to the modal
+        modal.appendChild(closeButtonElement);
+        modal.appendChild(titleElement);
+        modal.appendChild(typesUnorderedList);
+        modal.appendChild(heightElement);
+        modal.appendChild(weightElement);
+        modal.appendChild(imageElement);
+        modalContainer.appendChild(modal);
+    
+        //Makes modal visible
+        modalContainer.classList.add('is-visible');
+    }
+    
+    function hideModal() {
+        let modal = document.querySelector('#modal-container');
+        modal.classList.remove('is-visible');
+    }
+    
+    
+    window.addEventListener('keydown', function(e) {
+        /* The keydown event listener handles closing the window using the escape key and 
+        turning the page to the next Pokemon using the left and right arrow keys */
+        let modalContainer = document.querySelector('#modal-container');
+        //Hide modal if Esc is pressed while modal is open
+        if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
+        hideModal();
+        }
+        // load pokemon 1 up on list when key press left
+        if (e.key === 'ArrowLeft' && modalContainer.classList.contains('is-visible') && currentPokeID > 1) {
+            console.log('ArrowLeft');
+            hideModal();
+            previousPokemon();
+        }
+        // load pokemon 1 down on list when key press left
+        if (e.key === 'ArrowRight' && modalContainer.classList.contains('is-visible') && currentPokeID < 151) {
+            console.log('ArrowRight');
+            hideModal();
+            nextPokemon();
+        }
+        // Prevent default behavior for enter.
+        // If this not here, pressing enter will reload the first pokemon that was clicked on.
+        if (e.key ==='Enter') {
+            e.preventDefault();
+        }
+    });
+    
+    //click the button for the previous pokemon
+    function previousPokemon() {
+        //need to reformat the currentPokeID into the appropriate css class string
+        let previous = document.querySelector('.ID-' + (currentPokeID-1));
+        previous.click();
+    }
+    
+    //click the button for the next pokemon
+    function nextPokemon() {
+        //need to reformat the currentPokeID into the appropriate css class string
+        let next = document.querySelector('.ID-' + (parseInt(currentPokeID)+1));
+        next.click();
+    }
+    
+    //Hide modal if user clicks outside the modal
+    modalContainer.addEventListener('click', function(e) {
+        let target = e.target;
+        if (target === modalContainer) {
+        hideModal();
+        }
+    });
+    //--------End Modal implementation-------------------
+    
     return {
         add: add,
         getAll: getAll,
@@ -203,123 +320,3 @@ pokemonRepository.loadList().then(function() {
   });
 
 
-  //------Begin Modal implementation-------------------
-let modalContainer = document.querySelector('#modal-container');
-let currentPokeID; // Global variable, potential red flag, used for left and right key options
-
-function showModal(pokemon) {
-  //console.log(`displaying pokemon with pokeID: ${pokemon.pokeID}`);
-  currentPokeID = pokemon.pokeID.slice(3); //Need to parse the string to get the integer we really want
-  //console.log(`currentPokeID: ${currentPokeID}`);
-  //clear existing modal content
-  modalContainer.innerHTML = '';
-
-  let modal = document.createElement('div');
-  modal.classList.add('modal');
-
-  //close button
-  let closeButtonElement = document.createElement('button');
-  closeButtonElement.classList.add('modal-close');
-  closeButtonElement.innerText = 'Close';
-  closeButtonElement.addEventListener('click', hideModal);
-
-  //Pokemon Name
-  let titleElement = document.createElement('h1');
-  titleElement.innerText = pokemon.name;
-
-  //Pokemon Types
-  let typesUnorderedList = document.createElement('ul');
-  typesUnorderedList.classList.add('types-list');
-  pokemon.types.forEach(function(type) {
-      console.log(type);
-      let typesListElement = document.createElement('li');
-      typesListElement.classList.add(type);
-      typesListElement.classList.add('pokemon-type');
-      typesListElement.innerText = type;
-      typesUnorderedList.appendChild(typesListElement);
-  });
-
-  //Pokemon Height
-  let heightElement = document.createElement('p');
-  heightElement.innerText = 'Height: ' + pokemon.height + ' in';
-
-  //Pokemon Weight
-  let weightElement = document.createElement('p');
-  weightElement.innerText = 'Weight: ' + pokemon.weight + ' lbs';
-
-  //Pokemon Image
-  let imageElement = document.createElement('img');
-  imageElement.classList.add('pokemon-image');
-  imageElement.src = pokemon.imageUrl;
-
-  //Add the modal elements to the modal
-  modal.appendChild(closeButtonElement);
-  modal.appendChild(titleElement);
-  modal.appendChild(typesUnorderedList);
-  modal.appendChild(heightElement);
-  modal.appendChild(weightElement);
-  modal.appendChild(imageElement);
-  modalContainer.appendChild(modal);
-
-  //Makes modal visible
-  modalContainer.classList.add('is-visible');
-}
-
-function hideModal() {
-  let modal = document.querySelector('#modal-container');
-  modal.classList.remove('is-visible');
-}
-
-
-window.addEventListener('keydown', function(e) {
-  /* The keydown event listener handles closing the window using the escape key and 
-    turning the page to the next Pokemon using the left and right arrow keys */
-  let modalContainer = document.querySelector('#modal-container');
-  //Hide modal if Esc is pressed while modal is open
-  if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-    hideModal();
-  }
-  // load pokemon 1 up on list when key press left
-  if (e.key === 'ArrowLeft' && modalContainer.classList.contains('is-visible') && currentPokeID > 1) {
-      console.log('ArrowLeft');
-      hideModal();
-      previousPokemon();
-  }
-    // load pokemon 1 down on list when key press left
-  if (e.key === 'ArrowRight' && modalContainer.classList.contains('is-visible') && currentPokeID < 151) {
-      console.log('ArrowRight');
-      hideModal();
-      nextPokemon();
-  }
-  // Prevent default behavior for enter.
-  // If this not here, pressing enter will reload the first pokemon that was clicked on.
-  if (e.key ==='Enter') {
-      e.preventDefault();
-  }
-});
-
-//click the button for the previous pokemon
-function previousPokemon() {
-    //need to reformat the currentPokeID into the appropriate css class string
-    let previous = document.querySelector('.ID-' + (currentPokeID-1));
-    previous.click();
-}
-
-//click the button for the next pokemon
-function nextPokemon() {
-    //need to reformat the currentPokeID into the appropriate css class string
-    let next = document.querySelector('.ID-' + (parseInt(currentPokeID)+1));
-    next.click();
-}
-
-//Hide modal if user clicks outside the modal
-modalContainer.addEventListener('click', function(e) {
-  let target = e.target;
-  if (target === modalContainer) {
-    hideModal();
-  }
-});
-
-
-
-//--------End Modal implementation-------------------
