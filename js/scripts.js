@@ -16,7 +16,7 @@ let pokemonRepository = (function () {
             let pokemon = {
               name: item.name[0].toUpperCase() + item.name.substring(1),
               detailsUrl: item.url,
-              pokeID: `ID-${pokeID}` //this is a string not starting with a number because it will be used as a css class
+              pokeID: 'ID-' + pokeID //this is a string not starting with a number because it will be used as a css class
             };
             add(pokemon);
           });
@@ -207,9 +207,9 @@ let modalContainer = document.querySelector('#modal-container');
 let currentPokeID; // Global variable, potential red flag, used for left and right key options
 
 function showModal(pokemon) {
-  console.log(`displaying pokemon with pokeID: ${pokemon.pokeID}`);
+  //console.log(`displaying pokemon with pokeID: ${pokemon.pokeID}`);
   currentPokeID = pokemon.pokeID.slice(3); //Need to parse the string to get the integer we really want
-  console.log(`currentPokeID: ${currentPokeID}`);
+  //console.log(`currentPokeID: ${currentPokeID}`);
   //clear existing modal content
   modalContainer.innerHTML = '';
 
@@ -240,7 +240,7 @@ function showModal(pokemon) {
 
   //Pokemon Height
   let heightElement = document.createElement('p');
-  heightElement.innerText = `Height: ${pokemon.height} in`;
+  heightElement.innerText = 'Height: ' + pokemon.height + ' in';
 
   //Pokemon Image
   let imageElement = document.createElement('img');
@@ -265,7 +265,7 @@ function hideModal() {
 }
 
 
-window.addEventListener('keydown', (e) => {
+window.addEventListener('keydown', function(e) {
   /* The keydown event listener handles closing the window using the escape key and 
     turning the page to the next Pokemon using the left and right arrow keys */
   let modalContainer = document.querySelector('#modal-container');
@@ -295,19 +295,19 @@ window.addEventListener('keydown', (e) => {
 //click the button for the previous pokemon
 function previousPokemon() {
     //need to reformat the currentPokeID into the appropriate css class string
-    let previous = document.querySelector(`.ID-${currentPokeID-1}`);
+    let previous = document.querySelector('.ID-' + (currentPokeID-1));
     previous.click();
 }
 
 //click the button for the next pokemon
 function nextPokemon() {
     //need to reformat the currentPokeID into the appropriate css class string
-    let next = document.querySelector(`.ID-${parseInt(currentPokeID)+1}`);
+    let next = document.querySelector('.ID-' + (parseInt(currentPokeID)+1));
     next.click();
 }
 
 //Hide modal if user clicks outside the modal
-modalContainer.addEventListener('click', (e) => {
+modalContainer.addEventListener('click', function(e) {
   let target = e.target;
   if (target === modalContainer) {
     hideModal();

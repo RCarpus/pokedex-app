@@ -7,4 +7,4 @@ This app fetches data from the pokeAPI [https://pokeapi.co/](https://pokeapi.co/
 Download the files a a zip folder, unzip the folder, and open the index.html file using your preferred browser.
 
 ##Browser support
-This app has been tested on Chrome, Firefox, and Edge, and is assumed to work on all other modern browsers. This app does NOT currently work in IE11.
+This app has been tested on Chrome, Firefox, and Edge, and is assumed to work on all other modern browsers. The keypress events do NOT function in IE11, but the basic functionally of the page still works.
