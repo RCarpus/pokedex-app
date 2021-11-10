@@ -37,6 +37,7 @@ let pokemonRepository = (function () {
           // Now we add the details to the item
           item.imageUrl = details.sprites.front_default;
           item.height = details.height;
+          item.weight = details.weight;
           item.types = parseTypes(details.types);
           hideLoadingMessage();
         }).catch(function (e) {
@@ -242,6 +243,10 @@ function showModal(pokemon) {
   let heightElement = document.createElement('p');
   heightElement.innerText = 'Height: ' + pokemon.height + ' in';
 
+  //Pokemon Weight
+  let weightElement = document.createElement('p');
+  weightElement.innerText = 'Weight: ' + pokemon.weight + ' lbs';
+
   //Pokemon Image
   let imageElement = document.createElement('img');
   imageElement.classList.add('pokemon-image');
@@ -252,6 +257,7 @@ function showModal(pokemon) {
   modal.appendChild(titleElement);
   modal.appendChild(typesUnorderedList);
   modal.appendChild(heightElement);
+  modal.appendChild(weightElement);
   modal.appendChild(imageElement);
   modalContainer.appendChild(modal);
 
