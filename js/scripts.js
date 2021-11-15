@@ -158,6 +158,7 @@ let pokemonRepository = (function () {
         let imageElement = document.createElement('img');
         imageElement.classList.add('pokemon-image');
         imageElement.src = pokemon.imageUrl;
+        imageElement.setAttribute('alt', 'an image of ' + pokemon.name);
     
         //Add the modal elements to the modal
         //modalContent.appendChild(closeButtonElement);

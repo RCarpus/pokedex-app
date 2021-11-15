@@ -133,12 +133,12 @@ li.normal {
 }
 
 li.fire {
-    background-color: #fd7d24;
+    background-color: #bf5900;
     color: var(--pokemon-type-alt-text-color);
 }
 
 li.water {
-    background-color: #4592c4;
+    background-color: #007eb3;
     color: var(--pokemon-type-alt-text-color);
 }
 
@@ -155,12 +155,12 @@ li.ice {
 }
 
 li.fighting {
-    background-color: #d56723;
+    background-color: #c15800;
     color: var(--pokemon-type-alt-text-color);
 }
 
 li.poison {
-    background-color: #b97fc9;
+    background-color: #a458b6;
     color: var(--pokemon-type-alt-text-color);
 }
 
@@ -174,17 +174,15 @@ li.flying {
 
 li.psychic {
     background-color: #f366b9;
-    color: var(--pokemon-type-alt-text-color);
 }
 
 li.bug {
-    background-color: #729f3f;
+    background-color: #558300;
     color: var(--pokemon-type-alt-text-color);
 }
 
 li.rock {
     background-color: #a38c21;
-    color: var(--pokemon-type-alt-text-color);
 }
 
 li.ghost {
@@ -199,7 +197,6 @@ li.dark {
 
 li.dragon {
     background-color: #f16e57;
-    color: var(--pokemon-type-alt-text-color);
 }
 
 li.steel {

@@ -131,12 +131,12 @@ li.normal {
 }
 
 li.fire {
-    background-color: #fd7d24;
+    background-color: #bf5900;
     color: #fff;
 }
 
 li.water {
-    background-color: #4592c4;
+    background-color: #007eb3;
     color: #fff;
 }
 
@@ -153,12 +153,12 @@ li.ice {
 }
 
 li.fighting {
-    background-color: #d56723;
+    background-color: #c15800;
     color: #fff;
 }
 
 li.poison {
-    background-color: #b97fc9;
+    background-color: #a458b6;
     color: #fff;
 }
 
@@ -172,17 +172,15 @@ li.flying {
 
 li.psychic {
     background-color: #f366b9;
-    color: #fff;
 }
 
 li.bug {
-    background-color: #729f3f;
+    background-color: #558300;
     color: #fff;
 }
 
 li.rock {
     background-color: #a38c21;
-    color: #fff;
 }
 
 li.ghost {
@@ -197,7 +195,6 @@ li.dark {
 
 li.dragon {
     background-color: #f16e57;
-    color: #fff;
 }
 
 li.steel {
