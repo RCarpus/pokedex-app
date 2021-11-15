@@ -1,50 +1,50 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
     let requiredKeys = ['name', 'height', 'types', 'cutenessLevel'];
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
-    //let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
+    //let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
+    let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
 
     //Make the API call to load in the pokemon list
     function loadList() {
         showLoadingMessage();
         return fetch(apiUrl).then(function (response) {
-          return response.json();
+            return response.json();
         }).then(function (json) {
-          let pokeID = 0; //Each pokemon will get a unique pokeID
-          json.results.forEach(function (item) {
-            pokeID += 1;
-            let pokemon = {
-              name: item.name[0].toUpperCase() + item.name.substring(1),
-              detailsUrl: item.url,
-              pokeID: 'ID-' + pokeID //this is a string not starting with a number because it will be used as a css class
-            };
+            let pokeID = 0; //Each pokemon will get a unique pokeID
+            json.results.forEach(function (item) {
+                pokeID += 1;
+                let pokemon = {
+                name: item.name[0].toUpperCase() + item.name.substring(1),
+                detailsUrl: item.url,
+                pokeID: 'ID-' + pokeID //this is a string not starting with a number because it will be used as a css class
+                };
             add(pokemon);
-          });
-          hideLoadingMessage();
+            });
+            hideLoadingMessage();
         }).catch(function (e) {
-          console.error(e);
-          hideLoadingMessage();
+            console.error(e);
+            hideLoadingMessage();
         })
-      }
+    }
 
       //API call to load details when pokemon is clicked on
-      function loadDetails(item) {
+    function loadDetails(item) {
         showLoadingMessage();
         let url = item.detailsUrl;
         return fetch(url).then(function (response) {
-          return response.json();
+            return response.json();
         }).then(function (details) {
           // Now we add the details to the item
-          item.imageUrl = details.sprites.front_default;
-          item.height = details.height;
-          item.weight = details.weight;
-          item.types = parseTypes(details.types);
-          hideLoadingMessage();
+            item.imageUrl = details.sprites.front_default;
+            item.height = details.height;
+            item.weight = details.weight;
+            item.types = parseTypes(details.types);
+            hideLoadingMessage();
         }).catch(function (e) {
-          console.error(e);
-          hideLoadingMessage();
+            console.error(e);
+            hideLoadingMessage();
         });
-      }
+    }
 
 /*     //Unused function right now. May be reused/modified later when search is added
     function passedInKeysAreValid(passedInKeys) {
@@ -315,8 +315,8 @@ let pokemonRepository = (function () {
 pokemonRepository.loadList().then(function() {
     // Now the data is loaded!
     pokemonRepository.getAll().forEach(function(pokemon){
-      pokemonRepository.addListItem(pokemon);
+        pokemonRepository.addListItem(pokemon);
     });
-  });
+});
 
 
