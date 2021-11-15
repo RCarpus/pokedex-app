@@ -17,62 +17,65 @@ Make sure links in site point to style.production.css before publishing.
     --body-font-size: 20px;
 }   
 
-* {
-    box-sizing: border-box;
+#logo {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 5px;
 }
 
-
-/* h1 { */
-    display: block;
-    width: 100%;
-    font-weight: 700;
-    margin: 0 auto;
-    padding: 20px;
-    line-height: 1.2em;
-    text-align: center;
-}
-
-/* body { */
+body {
     font-family: 'Source Sans Pro', sans-serif;
     background-color: var(--body-background-color);
-    font-family: sans-serif;
     font-size: var(--body-font-size);
     line-height: 1.5em;
     margin: 15px;
 }
 
-/* ul { */
-    list-style-type: none;
-    padding: 5px;
+h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 700;
+    padding: 20px;
+    text-align: center;
 }
 
-/* .pokemon-list { */
+@media all and (max-width: 500px) {
+    h1 {
+        font-size: 25px;
+    }
+}
+
+.pokemon-list {
     background-color: var(--pokemon-box-color);
-    display: block;
     max-width: 250px;
     margin: 0 auto;
     border-style: solid;
     border-width: 3px;
     border-radius: 10px;
-    list-style-type: none;
 }
 
-/* .pokemon-button { */
+.list-group-item {
+    padding: 3px;
+    background-color: var(--pokemon-box-color);
+}
+
+.btn-primary {
     display: block;
     margin: .3em auto;
     background-color: #ddd;
+    color: black;
     width: 90%;
     font-size: 20px;
+    border-color: var(--logo-color);
 }
 
-/* .pokemon-button:hover { */
+.btn-primary:hover {
     color: var(--body-background-color);
     background-color: var(--logo-color);
 }
 
-/* #loading-message { */
+#loading-message {
     position: fixed;
-    max-width: 150px;
+    max-width: 250px;
     top: 25%;
     left: 50%;
     margin-left: -60px;
@@ -83,82 +86,46 @@ Make sure links in site point to style.production.css before publishing.
     color: white;
 }
 
- /* @media all and (max-width: 500px) { */ */
-    #logo {
-        height: 50px;
-    }
+.modal-header {
+    background-color: var(--body-background-color);
+    border-bottom-color: #00000049;
 }
-
-/*---------------Modal styles begin here*/
-/* #modal-container { */
-    position: fixed;
-    padding: 20px;
+  
+.modal-body {
+    /* font-family: inherit; */
+    margin: auto;
+    /* display: inline-block; */
     box-sizing: border-box;
-    top: 0;
-    left: 0;
+    /* background: #fff; */
+    /* padding: 15px; */
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    
-    /* to show it above other content */
-    z-index: 999; 
-    
-    /* to allow scrolling if the screen is not high enough*/
-    overflow: auto; 
-    
-    /* this is used to center the modal */
-    display: none;
-    text-align: center;
+    /* max-width: 300px; */
+    /* text-align: left; */
+    /* border: solid black 1px; */
+    /* border-radius: 15px; */
+    background-color: var(--body-background-color);
+    /* background-color: green; */
 }
   
-/* #modal-container.is-visible { */
-display: block;
-}
-  
-/* .modal { */
-margin: auto;
-display: inline-block;
-box-sizing: border-box;
-background: #fff;
-padding: 15px;
-width: 100%;
-max-width: 300px;
-text-align: left;
-border: solid black 1px;
-border-radius: 15px;
-background-color: var(--body-background-color);
-}
-  
-/* .modal-close { */
-float: right;
--webkit-appearance: none;
-border: 0;
-background: none;
-color: #777;
-text-decoration: underline;
-}
-  
-/* .modal h1 { */
-margin-top: 0;
-}
-  
-/* .modal p { */
+.modal p {
     margin-bottom: 0;
     margin-left: 10px;
+
 }
 
-/* .pokemon-image { */
+.pokemon-image {
     display: block;
     margin: 0 auto;
-    width: 75%;
+    width: 60%;
 }
 
-/* .pokemon-type { */
+.pokemon-type {
     display: inline-block;
     margin-right: 10px;
     width: 100px;
     text-align: center;
     border-radius: 5px;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 li.normal {
@@ -242,5 +209,3 @@ li.steel {
 li.fairy {
     background-color: #fdb9e9;
 }
-
-  /* ---------------Modal styles end here */
