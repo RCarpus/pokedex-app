@@ -8,6 +8,7 @@
         "eslint:recommended"
     ],
     "rules": {
-        "quotes": ["error", "single"],
-    }
+        "quotes": ["error", "single"]
+    },
+    "ignorePatterns": ["dist/js", "src/js/tota11y.min.js"]
 }
