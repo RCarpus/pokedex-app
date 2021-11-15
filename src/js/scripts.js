@@ -2,8 +2,6 @@ let pokemonRepository = (function () {
     let pokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
-    let myString = "streing";
-
     //Make the API call to load in the pokemon list
     function loadList() {
         showLoadingMessage();
@@ -55,7 +53,6 @@ let pokemonRepository = (function () {
             parsed.push(type.type.name);
         });
         return parsed;
-
     }
 
     function add(pokemon) {        
@@ -74,11 +71,6 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
-    //saving for when search is added
-/*     function searchByName(name) {
-        return pokemonList.filter(pokemon => pokemon.name === name)[0];
-    }
- */
     function addListItem(pokemon) {
         //Adds a <li> with a child <button class="pokemon-button list-group-item"> to the parent <ul class="pokemon-list">
         let pokemonList = document.querySelector('.pokemon-list');
@@ -128,8 +120,8 @@ let pokemonRepository = (function () {
         currentPokeID = pokemon.pokeID.slice(3); //Need to parse the string to get the integer we really want
 
         //clear existing modal content
-        let modalBody = $(".modal-body");
-        let modalTitle = $(".modal-title");
+        let modalBody = $('.modal-body');
+        let modalTitle = $('.modal-title');
         modalTitle.empty();
         modalBody.empty();
     
@@ -177,19 +169,19 @@ let pokemonRepository = (function () {
         let modalContainer = document.querySelector('.modal');
         //Hide modal if Esc is pressed while modal is open
         // load pokemon 1 up on list when key press left
-        if (e.key === 'ArrowLeft' && getComputedStyle(modalContainer).display != "none" && currentPokeID > 1) {
+        if (e.key === 'ArrowLeft' && getComputedStyle(modalContainer).display != 'none' && currentPokeID > 1) {
             hideModal();
             previousPokemon();
         }
         // load pokemon 1 down on list when key press left
-        if (e.key === 'ArrowRight' && getComputedStyle(modalContainer).display != "none" && currentPokeID < 151) {
+        if (e.key === 'ArrowRight' && getComputedStyle(modalContainer).display != 'none' && currentPokeID < 151) {
             hideModal();
             nextPokemon();
         }
     });
 
     function hideModal() {
-        closeButton = $('.close');
+        let closeButton = $('.close');
         closeButton.click();
     }
     
