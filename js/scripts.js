@@ -1,8 +1,6 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
-    let requiredKeys = ['name', 'height', 'types', 'cutenessLevel'];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
-    //let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
 
     //Make the API call to load in the pokemon list
     function loadList() {
@@ -46,52 +44,6 @@ let pokemonRepository = (function () {
         });
     }
 
-/*     //Unused function right now. May be reused/modified later when search is added
-    function passedInKeysAreValid(passedInKeys) {
-        let missingKeys = [];
-        //Check to make sure each required key is present
-        requiredKeys.forEach(function(key) {
-            if (!passedInKeys.includes(key)) {
-                console.error(`Error: Missing key - ${key}`);
-                missingKeys.push(key);
-            } 
-        });
-        return missingKeys.length ? false : true;
-    }
- */
-
-    function nameIsAvailable(passedInName) {
-        let available = searchByName(passedInName) ? false : true;
-        if (!available) console.error('A pokemon with the same name is already in the repository.');
-        return available;
-    }
-
-    function typeIsValid(passedInTypes) {
-        //Checks to see if each passed in type is a valid type.
-        //This will also catch if a wrong data type altogether is passed in (ie: int).
-        //This check will let pass an empty list.
-        //That will not be a problem if it's just a blank search parameter
-        //but is a potential problem if I am pulling bad data from an external source.
-        if (!Array.isArray(passedInTypes))  {
-            console.error('pokemon.types must be a list');
-            return false; 
-        }
-        let validTypes = ['normal', 'fire', 'water', 
-                        'grass', 'electric', 'ice', 
-                        'fighting', 'poison', 'ground', 
-                        'flying', 'psychic', 'bug', 
-                        'rock', 'ghost', 'dark', 
-                        'dragon', 'steel', 'fairy'];
-        let foundInvalidType = false;
-        passedInTypes.forEach(function(type) {
-            if (!validTypes.includes(type)) {
-                console.error('Invalid type');
-                foundInvalidType = true;
-            }
-        });
-        return foundInvalidType ? false : true;
-    }
-
     function parseTypes(types) {
         //pass in the types property of a pokemon object
         //return a list of types
@@ -103,27 +55,6 @@ let pokemonRepository = (function () {
         return parsed;
 
     }
-
-/*     //Validation is not currently used, keeping function to reuse/retool later
-    function pokemonIsValid(pokemon) {
-        //runs all validations for a pokemon
-        //returns true if all checks pass, false if one or more checks fail
-        let valid = true;
-        if (!passedInKeysAreValid(Object.keys(pokemon))) {
-            console.error('invalid keys');
-            valid = false;
-        }
-        if (!nameIsAvailable(pokemon.name)) {
-            console.error('name invalid');
-            valid = false;
-        }
-        if (!typeIsValid(pokemon.types)) {
-            console.error('types is invalid');
-            valid = false;
-        }
-        return valid ? true : false;
-    }
- */
 
     function add(pokemon) {        
         /*
@@ -141,6 +72,7 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
+    //saving for when search is added
 /*     function searchByName(name) {
         return pokemonList.filter(pokemon => pokemon.name === name)[0];
     }
@@ -167,7 +99,6 @@ let pokemonRepository = (function () {
 
     function showDetails(pokemon) {
         loadDetails(pokemon).then(function () {
-            console.log(pokemon);
             showModal(pokemon);
         });
     }
@@ -192,9 +123,7 @@ let pokemonRepository = (function () {
     let currentPokeID; // used for left and right key options
     
     function showModal(pokemon) {
-        //console.log(`displaying pokemon with pokeID: ${pokemon.pokeID}`);
         currentPokeID = pokemon.pokeID.slice(3); //Need to parse the string to get the integer we really want
-        //console.log(`currentPokeID: ${currentPokeID}`);
 
         //clear existing modal content
         let modalBody = $(".modal-body");
@@ -210,7 +139,6 @@ let pokemonRepository = (function () {
         let typesUnorderedList = document.createElement('ul');
         typesUnorderedList.classList.add('types-list');
         pokemon.types.forEach(function(type) {
-            console.log(type);
             let typesListElement = document.createElement('li');
             typesListElement.classList.add(type);
             typesListElement.classList.add('pokemon-type');
