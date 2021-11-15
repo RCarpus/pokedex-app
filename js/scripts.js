@@ -238,35 +238,29 @@ let pokemonRepository = (function () {
         modalBody.append(heightElement);
         modalBody.append(weightElement);
         modalBody.append(imageElement);
-    }
-        
+    }   
     
-    // window.addEventListener('keydown', function(e) {
-    //     /* The keydown event listener handles closing the window using the escape key and 
-    //     turning the page to the next Pokemon using the left and right arrow keys */
-    //     let modalContainer = document.querySelector('#modal-container');
-    //     //Hide modal if Esc is pressed while modal is open
-    //     if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-    //     hideModal();
-    //     }
-    //     // load pokemon 1 up on list when key press left
-    //     if (e.key === 'ArrowLeft' && modalContainer.classList.contains('is-visible') && currentPokeID > 1) {
-    //         console.log('ArrowLeft');
-    //         hideModal();
-    //         previousPokemon();
-    //     }
-    //     // load pokemon 1 down on list when key press left
-    //     if (e.key === 'ArrowRight' && modalContainer.classList.contains('is-visible') && currentPokeID < 151) {
-    //         console.log('ArrowRight');
-    //         hideModal();
-    //         nextPokemon();
-    //     }
-    //     // Prevent default behavior for enter.
-    //     // If this not here, pressing enter will reload the first pokemon that was clicked on.
-    //     if (e.key ==='Enter') {
-    //         e.preventDefault();
-    //     }
-    // });
+    window.addEventListener('keydown', function(e) {
+        /* The keydown event listener handles closing the window using the escape key and 
+        turning the page to the next Pokemon using the left and right arrow keys */
+        let modalContainer = document.querySelector('.modal');
+        //Hide modal if Esc is pressed while modal is open
+        // load pokemon 1 up on list when key press left
+        if (e.key === 'ArrowLeft' && getComputedStyle(modalContainer).display != "none" && currentPokeID > 1) {
+            hideModal();
+            previousPokemon();
+        }
+        // load pokemon 1 down on list when key press left
+        if (e.key === 'ArrowRight' && getComputedStyle(modalContainer).display != "none" && currentPokeID < 151) {
+            hideModal();
+            nextPokemon();
+        }
+    });
+
+    function hideModal() {
+        closeButton = $('.close');
+        closeButton.click();
+    }
     
     //click the button for the previous pokemon
     function previousPokemon() {
