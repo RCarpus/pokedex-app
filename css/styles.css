@@ -21,7 +21,8 @@ Make sure links in site point to style.production.css before publishing.
     box-sizing: border-box;
 }
 
-h1 {
+
+/* h1 { */
     display: block;
     width: 100%;
     font-weight: 700;
@@ -31,7 +32,7 @@ h1 {
     text-align: center;
 }
 
-body {
+/* body { */
     font-family: 'Source Sans Pro', sans-serif;
     background-color: var(--body-background-color);
     font-family: sans-serif;
@@ -40,12 +41,12 @@ body {
     margin: 15px;
 }
 
-ul {
+/* ul { */
     list-style-type: none;
     padding: 5px;
 }
 
-.pokemon-list {
+/* .pokemon-list { */
     background-color: var(--pokemon-box-color);
     display: block;
     max-width: 250px;
@@ -56,7 +57,7 @@ ul {
     list-style-type: none;
 }
 
-.pokemon-button {
+/* .pokemon-button { */
     display: block;
     margin: .3em auto;
     background-color: #ddd;
@@ -64,12 +65,12 @@ ul {
     font-size: 20px;
 }
 
-.pokemon-button:hover {
+/* .pokemon-button:hover { */
     color: var(--body-background-color);
     background-color: var(--logo-color);
 }
 
-#loading-message {
+/* #loading-message { */
     position: fixed;
     max-width: 150px;
     top: 25%;
@@ -82,14 +83,14 @@ ul {
     color: white;
 }
 
-@media all and (max-width: 500px) {
+ /* @media all and (max-width: 500px) { */ */
     #logo {
         height: 50px;
     }
 }
 
 /*---------------Modal styles begin here*/
-#modal-container {
+/* #modal-container { */
     position: fixed;
     padding: 20px;
     box-sizing: border-box;
@@ -110,11 +111,11 @@ ul {
     text-align: center;
 }
   
-#modal-container.is-visible {
+/* #modal-container.is-visible { */
 display: block;
 }
   
-.modal {
+/* .modal { */
 margin: auto;
 display: inline-block;
 box-sizing: border-box;
@@ -128,7 +129,7 @@ border-radius: 15px;
 background-color: var(--body-background-color);
 }
   
-.modal-close {
+/* .modal-close { */
 float: right;
 -webkit-appearance: none;
 border: 0;
@@ -137,22 +138,22 @@ color: #777;
 text-decoration: underline;
 }
   
-.modal h1 {
+/* .modal h1 { */
 margin-top: 0;
 }
   
-.modal p {
+/* .modal p { */
     margin-bottom: 0;
     margin-left: 10px;
 }
 
-.pokemon-image {
+/* .pokemon-image { */
     display: block;
     margin: 0 auto;
     width: 75%;
 }
 
-.pokemon-type {
+/* .pokemon-type { */
     display: inline-block;
     margin-right: 10px;
     width: 100px;
@@ -242,4 +243,4 @@ li.fairy {
     background-color: #fdb9e9;
 }
 
-  /*---------------Modal styles end here*/
+  /* ---------------Modal styles end here */

@@ -1,8 +1,8 @@
 let pokemonRepository = (function () {
     let pokemonList = [];
     let requiredKeys = ['name', 'height', 'types', 'cutenessLevel'];
-    //let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
-    let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
+    //let apiUrl = 'downloaded-api-data.json';//this is just to reduce real API calls with live reload extension in development
 
     //Make the API call to load in the pokemon list
     function loadList() {
@@ -146,12 +146,15 @@ let pokemonRepository = (function () {
     }
  */
     function addListItem(pokemon) {
-        //Adds a <li> with a child <button class="pokemon-button"> to the parent <ul class="pokemon-list">
+        //Adds a <li> with a child <button class="pokemon-button list-group-item"> to the parent <ul class="pokemon-list">
         let pokemonList = document.querySelector('.pokemon-list');
         let listItem = document.createElement('li');
+        listItem.classList.add('list-group-item');
         let button = document.createElement('button');
         button.innerText = pokemon.name;
         button.classList.add('pokemon-button');
+        button.classList.add('btn');
+        button.classList.add('btn-primary');
         button.classList.add(pokemon.pokeID);        
         listItem.appendChild(button);
         pokemonList.appendChild(listItem);
