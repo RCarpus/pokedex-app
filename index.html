@@ -14,24 +14,44 @@
     <!--my css-->
     <link rel="stylesheet" type="text/css" href="css/styles.css">
   </head>
+
   <body>
     <div class="container">
+      
       <header>
         <div class="row">
-          <img id="logo" class="col-2" src="img/logo.png" alt="">
+          <img id="logo" class="col-3" src="img/logo.png" alt="">
           <h1 id="title" class="col">Simple Pokedex</h1>
         </div>
       </header>
-      <div id="modal-container"></div>
+
+      <div id="modal-container" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!--I might need ID to change with pokemon name for aria-->
+              <div class="modal-title" id="modelLabel"></div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body"></div>
+          </div>
+        </div>
+      </div>
+
       <ul class="pokemon-list list-group"></ul>
+
       <!--promise polyfill and fetch polyfill before main script. Order matters here-->
       <script src="js/promise-polyfill.js"></script>
       <script src="js/fetch.umd.js"></script>
+
       <!-- bootstrap and its dependencies, jquery slim and popper-->
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
       <script src="js/scripts.js"></script>
+    
     </div>
   </body>
 </html>
