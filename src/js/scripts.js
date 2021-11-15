@@ -2,6 +2,8 @@ let pokemonRepository = (function () {
     let pokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
+    let myString = "streing";
+
     //Make the API call to load in the pokemon list
     function loadList() {
         showLoadingMessage();
