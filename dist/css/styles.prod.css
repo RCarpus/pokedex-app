@@ -12,12 +12,7 @@ then use the Autoprefixer CSS online tool
 https://autoprefixer.github.io/
 Paste output into style.production.css. 
 Make sure links in site point to style.production.css before publishing.
-*/
-
-:root {
-    /* colors */ /*light gray*/
-    /* font sizes */
-}   
+*/  
 
 #logo {
     max-width: 150px;
