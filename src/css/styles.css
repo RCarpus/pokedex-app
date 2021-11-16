@@ -21,6 +21,15 @@ Make sure links in site point to style.production.css before publishing.
     max-width: 150px;
     height: auto;
     margin-bottom: 5px;
+    display:inline-block
+}
+
+#title {
+    display: inline-block;
+}
+
+#page-content {
+    margin-top: 150px;
 }
 
 body {
@@ -38,7 +47,7 @@ h1 {
     text-align: center;
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 600px) {
     h1 {
         font-size: 25px;
     }
