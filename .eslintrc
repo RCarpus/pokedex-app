@@ -10,5 +10,5 @@
     "rules": {
         "quotes": ["error", "single"]
     },
-    "ignorePatterns": ["dist/js", "src/js/tota11y.min.js"]
+    "ignorePatterns": ["dist/js", "src/js/tota11y.min.js", "promise-polyfill.js", "fetch.umd.js"]
 }
