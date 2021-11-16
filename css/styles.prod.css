@@ -12,12 +12,22 @@ then use the Autoprefixer CSS online tool
 https://autoprefixer.github.io/
 Paste output into style.production.css. 
 Make sure links in site point to style.production.css before publishing.
-*/ 
+*/  
 
 #logo {
     max-width: 150px;
     height: auto;
     margin-bottom: 5px;
+    display:inline-block
+}
+
+#title {
+    display: inline-block;
+}
+
+
+#page-content {
+    margin-top: 150px;
 }
 
 body {
@@ -25,7 +35,6 @@ body {
     background-color: #ddd;
     font-size: 20px;
     line-height: 1.5em;
-    margin: 15px;
 }
 
 h1 {
@@ -35,7 +44,7 @@ h1 {
     text-align: center;
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 600px) {
     h1 {
         font-size: 25px;
     }
