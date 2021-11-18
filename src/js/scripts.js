@@ -48,11 +48,8 @@ let pokemonRepository = (function () {
         //pass in the types property of a pokemon object
         //return a list of types
         //assume a properly formatted types list is passed in
-        let parsed = [];
-        types.forEach(function(type) {
-            parsed.push(type.type.name);
-        });
-        return parsed;
+        console.log(types);
+        return types.map(type => type.type.name);
     }
 
     function add(pokemon) {        
