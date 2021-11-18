@@ -12,7 +12,12 @@ then use the Autoprefixer CSS online tool
 https://autoprefixer.github.io/
 Paste output into style.production.css. 
 Make sure links in site point to style.production.css before publishing.
-*/  
+*/
+
+:root {
+    /* colors */ /*light gray*/
+    /* font sizes */
+}   
 
 #logo {
     max-width: 150px;
@@ -26,6 +31,8 @@ Make sure links in site point to style.production.css before publishing.
 }
 
 #page-content {
+    display: -ms-grid;
+    display: grid;
     margin-top: 150px;
 }
 
@@ -52,11 +59,28 @@ h1 {
 
 .pokemon-list {
     background-color: rgb(175, 175, 175);
-    max-width: 250px;
+    max-width: 1400px;
     margin: 0 auto;
     border-style: solid;
     border-width: 3px;
     border-radius: 10px;
+    -ms-grid-columns: (1fr)[3];
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Adapt number of columns to screen size */
+@media all and (max-width: 700px) {
+    .pokemon-list {
+        -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media all and (max-width: 450px) {
+    .pokemon-list {
+        -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    }
 }
 
 .list-group-item {
