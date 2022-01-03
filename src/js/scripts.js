@@ -139,7 +139,7 @@ let pokemonRepository = (function () {
 
     //Pokemon Height
     let heightElement = document.createElement('p');
-    heightElement.innerText = 'Height: ' + pokemon.height + ' in';
+    heightElement.innerText = 'Height: ' + pokemon.height * 10 + ' cm';
 
     //Pokemon Weight
     let weightElement = document.createElement('p');
